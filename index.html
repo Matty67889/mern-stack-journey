@@ -10,16 +10,20 @@
   <!-- Import React -->
   <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+  <!-- Import Babel -->
+  <script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
 </head>
 
 <body>
   <div id="content"></div>
 
-  <script>
-    const element = React.createElement(
-      'div',
-      { title: 'Outer div' },
-      React.createElement('h1', null, 'Hello World! Hello Mikala!'));
+  <script type="text/babel">
+    const element = (
+      <div title="Outer div">
+        <h1>Hello World!</h1>
+      </div>
+    );
 
     ReactDOM.render(element, document.getElementById('content'));
   </script>
