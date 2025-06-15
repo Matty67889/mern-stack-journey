@@ -20,7 +20,7 @@ class IssueRow extends React.Component {
     return (
       <tr>
         <td style={style}>{this.props.issue_id}</td>
-        <td style={style}>{this.props.issue_title}</td>
+        <td style={style}>{this.props.children}</td>
       </tr>
     );
   }
@@ -38,8 +38,9 @@ class IssueTable extends React.Component {
           </tr>
         </thead>
         <tbody>
-          <IssueRow rowStyle={rowStyle} issue_id={1} issue_title="Chicken started running without its head" />
-          <IssueRow rowStyle={rowStyle} issue_id={2} issue_title="I can't find my fingers" />
+          <IssueRow rowStyle={rowStyle} issue_id={1}>Chicken started running without its head</IssueRow>
+          <IssueRow rowStyle={rowStyle} issue_id={2}>I can't find my fingers</IssueRow>
+          <IssueRow rowStyle={rowStyle} issue_id={3}>Adding anogther issue to follow the rule of threes</IssueRow>
         </tbody>
       </table>
     );

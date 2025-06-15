@@ -53,7 +53,7 @@ var IssueRow = /*#__PURE__*/function (_React$Component3) {
         style: style
       }, this.props.issue_id), /*#__PURE__*/React.createElement("td", {
         style: style
-      }, this.props.issue_title));
+      }, this.props.children));
     }
   }]);
 }(React.Component);
@@ -80,13 +80,14 @@ var IssueTable = /*#__PURE__*/function (_React$Component4) {
         style: rowStyle
       }, "Title"))), /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement(IssueRow, {
         rowStyle: rowStyle,
-        issue_id: 1,
-        issue_title: "Chicken started running without its head"
-      }), /*#__PURE__*/React.createElement(IssueRow, {
+        issue_id: 1
+      }, "Chicken started running without its head"), /*#__PURE__*/React.createElement(IssueRow, {
         rowStyle: rowStyle,
-        issue_id: 2,
-        issue_title: "I can't find my fingers"
-      })));
+        issue_id: 2
+      }, "I can't find my fingers"), /*#__PURE__*/React.createElement(IssueRow, {
+        rowStyle: rowStyle,
+        issue_id: 3
+      }, "Adding anogther issue to follow the rule of threes")));
     }
   }]);
 }(React.Component);
