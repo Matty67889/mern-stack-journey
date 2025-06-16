@@ -13,6 +13,31 @@ function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.
 function _getPrototypeOf(t) { return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) { return t.__proto__ || Object.getPrototypeOf(t); }, _getPrototypeOf(t); }
 function _inherits(t, e) { if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function"); t.prototype = Object.create(e && e.prototype, { constructor: { value: t, writable: !0, configurable: !0 } }), Object.defineProperty(t, "prototype", { writable: !1 }), e && _setPrototypeOf(t, e); }
 function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
+var issues = [{
+  id: 1,
+  status: "New",
+  owner: "Ravan",
+  effort: 5,
+  created: new Date('2018-08-15'),
+  due: undefined,
+  title: 'Chicken started running without its head'
+}, {
+  id: 2,
+  status: "Assigned",
+  owner: "Eddie",
+  effort: 14,
+  created: new Date('2018-08-16'),
+  due: new Date('2018-08-30'),
+  title: "I can't find my fingers"
+}, {
+  id: 3,
+  status: "Assigned",
+  owner: "Tobias",
+  effort: 7,
+  created: new Date('2018-08-17'),
+  due: new Date('2018-08-18'),
+  title: "Adding anogther issue to follow the rule of threes"
+}];
 var IssueFilter = /*#__PURE__*/function (_React$Component) {
   function IssueFilter() {
     _classCallCheck(this, IssueFilter);
@@ -48,12 +73,8 @@ var IssueRow = /*#__PURE__*/function (_React$Component3) {
   return _createClass(IssueRow, [{
     key: "render",
     value: function render() {
-      var style = this.props.rowStyle;
-      return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", {
-        style: style
-      }, this.props.issue_id), /*#__PURE__*/React.createElement("td", {
-        style: style
-      }, this.props.children));
+      var issue = this.props.issue;
+      return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, issue.id), /*#__PURE__*/React.createElement("td", null, issue.title), /*#__PURE__*/React.createElement("td", null, issue.owner), /*#__PURE__*/React.createElement("td", null, issue.effort), /*#__PURE__*/React.createElement("td", null, issue.created ? issue.created.toDateString() : 'No created date'), /*#__PURE__*/React.createElement("td", null, issue.due ? issue.due.toDateString() : 'No due date'), /*#__PURE__*/React.createElement("td", null, issue.title));
     }
   }]);
 }(React.Component);
@@ -66,28 +87,15 @@ var IssueTable = /*#__PURE__*/function (_React$Component4) {
   return _createClass(IssueTable, [{
     key: "render",
     value: function render() {
-      var rowStyle = {
-        border: "1px solid silver",
-        padding: 4
-      };
+      var issueRows = issues.map(function (issue) {
+        return /*#__PURE__*/React.createElement(IssueRow, {
+          key: issue.id,
+          issue: issue
+        });
+      });
       return /*#__PURE__*/React.createElement("table", {
-        style: {
-          borderCollapse: "collapse"
-        }
-      }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", {
-        style: rowStyle
-      }, "ID"), /*#__PURE__*/React.createElement("th", {
-        style: rowStyle
-      }, "Title"))), /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement(IssueRow, {
-        rowStyle: rowStyle,
-        issue_id: 1
-      }, "Chicken started running without its head"), /*#__PURE__*/React.createElement(IssueRow, {
-        rowStyle: rowStyle,
-        issue_id: 2
-      }, "I can't find my fingers"), /*#__PURE__*/React.createElement(IssueRow, {
-        rowStyle: rowStyle,
-        issue_id: 3
-      }, "Adding anogther issue to follow the rule of threes")));
+        className: "bordered-table"
+      }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "ID"), /*#__PURE__*/React.createElement("th", null, "Status"), /*#__PURE__*/React.createElement("th", null, "Owner"), /*#__PURE__*/React.createElement("th", null, "Created"), /*#__PURE__*/React.createElement("th", null, "Effort"), /*#__PURE__*/React.createElement("th", null, "Due Date"), /*#__PURE__*/React.createElement("th", null, "Title"))), /*#__PURE__*/React.createElement("tbody", null, issueRows));
     }
   }]);
 }(React.Component);
