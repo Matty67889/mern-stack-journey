@@ -1,4 +1,4 @@
-const issues = [
+const initialIssues = [
   {
     id: 1, status: "New", owner: "Ravan", effort: 5,
     created: new Date('2018-08-15'), due: undefined,
@@ -12,9 +12,15 @@ const issues = [
   {
     id: 3, status: "Assigned", owner: "Tobias", effort: 7,
     created: new Date('2018-08-17'), due: new Date('2018-08-18'),
-    title: "Adding anogther issue to follow the rule of threes"
+    title: "Adding another issue to follow the rule of threes"
   }
 ]
+
+const sampleIssue = {
+  status: "New", owner: "Pieta",
+  title: "Completion date should be optional"
+}
+
 class IssueFilter extends React.Component {
   render() {
     return (
@@ -37,10 +43,10 @@ class IssueRow extends React.Component {
     return (
       <tr>
         <td>{issue.id}</td>
-        <td>{issue.title}</td>
+        <td>{issue.status}</td>
         <td>{issue.owner}</td>
-        <td>{issue.effort}</td>
         <td>{issue.created ? issue.created.toDateString() : 'No created date'}</td>
+        <td>{issue.effort}</td>
         <td>{issue.due ? issue.due.toDateString() : 'No due date'}</td>
         <td>{issue.title}</td>
       </tr>
@@ -49,8 +55,34 @@ class IssueRow extends React.Component {
 }
 
 class IssueTable extends React.Component {
+  constructor() {
+    super();
+    this.state = { issues: [] };
+    setTimeout(() => {
+      this.createIssue(sampleIssue);
+    }, 3000);
+  }
+
+  componentDidMount() {
+    this.loadData();
+  }
+
+  loadData() {
+    setTimeout(() => {
+      this.setState({ issues: initialIssues });
+    }, 500);
+  }
+
+  createIssue(issue) {
+    issue.id = this.state.issues.length + 1;
+    issue.created = new Date();
+    const newIssueList = this.state.issues.slice();
+    newIssueList.push(issue);
+    this.setState({ issues: newIssueList });
+  }
+
   render() {
-    const issueRows = issues.map(issue => <IssueRow key={issue.id} issue={issue} />)
+    const issueRows = this.state.issues.map(issue => <IssueRow key={issue.id} issue={issue} />)
     return (
       <table className="bordered-table">
         <thead>
