@@ -1,13 +1,42 @@
 const fs = require('fs');
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
+const { GraphQLScalarType } = require('graphql');
 
 // GraphQL Nonsense
+const GraphQLDate = new GraphQLScalarType({
+  name: 'GraphQLDate',
+  description: 'A Date() type in GraphQL as a scalar',
+
+  serialize(value) {
+    return value.toISOString();
+  }
+});
+
 let aboutMessage = "Issue Tracker API v1.0";
+
+const issuesDB = [
+  {
+    id: 1, status: "New", owner: "Ravan", effort: 5,
+    created: new Date('2018-08-15'), due: undefined,
+    title: 'Chicken started running without its head'
+  },
+  {
+    id: 2, status: "Assigned", owner: "Eddie", effort: 14,
+    created: new Date('2018-08-16'), due: new Date('2018-08-30'),
+    title: "I can't find my fingers"
+  },
+  {
+    id: 3, status: "Assigned", owner: "Tobias", effort: 7,
+    created: new Date('2018-08-17'), due: new Date('2018-08-18'),
+    title: "Adding another issue to follow the rule of threes"
+  }
+];
 
 const resolvers = {
   Query: {
     about: () => aboutMessage,
+    issueList
   },
   Mutation: {
     setAboutMessage
@@ -16,6 +45,10 @@ const resolvers = {
 
 function setAboutMessage(_, { message }) {
   return aboutMessage = message;
+}
+
+function issueList() {
+  return issuesDB;
 }
 
 const app = express();
