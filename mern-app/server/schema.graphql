@@ -10,6 +10,7 @@ enum StatusType {
 ### Types
 
 type Issue {
+  _id: ID!
   id: Int!
   title: String!
   status: StatusType!
