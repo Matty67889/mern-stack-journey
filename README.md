@@ -17,3 +17,15 @@ An issue should have following attributes:
 - Creation date (a date, automatically assigned)
 - Effort required to address the issue (number of days, a number)
 - Estimated completion date or due date (a date, optional)
+
+## Getting Started
+
+To run the issue tracker application:
+
+1. In the `ui` folder, open two separate terminals. Run `npm start` in one, and `npm watch` in the other.
+2. In the `api` folder, open one terminal. Run `npm start`.
+
+To run the mongo scripts in `api/scripts`:
+
+In the `api` folder, open a terminal. Run `node scripts/<script_name>.js`.
+For example, to run the `trymongo.js` script, run `node scripts/trymongo.js`.
