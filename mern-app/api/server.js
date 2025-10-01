@@ -91,7 +91,7 @@ function validateIssue(issue) {
 }
 
 async function connectToDb() {
-  const client = new MongoClient(url, { useNewUrlParser: true });
+  const client = new MongoClient(url);
   await client.connect();
   console.log("Connected to MongoDB at", url);
   db = client.db();
