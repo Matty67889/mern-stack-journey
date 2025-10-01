@@ -91,7 +91,7 @@ function validateIssue(issue) {
 }
 
 async function connectToDb() {
-  const client = new MongoClient(url);
+  const client = new MongoClient(url, { useNewUrlParser: true });
   await client.connect();
   console.log("Connected to MongoDB at", url);
   db = client.db();
@@ -99,7 +99,7 @@ async function connectToDb() {
 
 // Apollo server (testing) setup
 const server = new ApolloServer({
-  typeDefs: fs.readFileSync('./server/schema.graphql', 'utf-8'),
+  typeDefs: fs.readFileSync('./schema.graphql', 'utf-8'),
   resolvers,
   formatError: error => {
     console.log(error);
@@ -108,8 +108,6 @@ const server = new ApolloServer({
 });
 
 const app = express();
-const fileServerMiddleware = express.static('public');
-app.use('/', fileServerMiddleware);
 
 server.applyMiddleware({ app, path: '/graphql' });
 
@@ -117,7 +115,7 @@ server.applyMiddleware({ app, path: '/graphql' });
   try {
     await connectToDb();
     app.listen(3000, function () {
-      console.log('App started on port 3000');
+      console.log('API Server started on port 3000');
     });
   } catch (err) {
     console.log("We have an error, just for you:", err);
