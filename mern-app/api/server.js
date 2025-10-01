@@ -1,3 +1,4 @@
+require('dotenv').config();
 const fs = require('fs');
 const express = require('express');
 const { ApolloServer, UserInputError } = require('apollo-server-express');
@@ -7,7 +8,8 @@ const { Kind } = require('graphql/language');
 const { MongoClient } = require('mongodb');
 
 // MongoDB nonsense
-const url = "mongodb://localhost/issuetracker";
+const url = process.env.DB_URL || "mongodb://localhost/issuetracker";
+const port = process.env.API_SERVER_PORT || 3000;
 let db;
 
 // GraphQL nonsense
@@ -114,8 +116,8 @@ server.applyMiddleware({ app, path: '/graphql' });
 (async function () {
   try {
     await connectToDb();
-    app.listen(3000, function () {
-      console.log('API Server started on port 3000');
+    app.listen(port, function () {
+      console.log(`API Server started on port ${port}`);
     });
   } catch (err) {
     console.log("We have an error, just for you:", err);

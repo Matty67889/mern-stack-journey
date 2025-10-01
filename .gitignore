@@ -1,3 +1,4 @@
 node_modules
 package-lock.json
 mern-app/ui/public/App.js
+.env

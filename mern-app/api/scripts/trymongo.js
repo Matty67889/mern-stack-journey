@@ -1,8 +1,7 @@
+require('dotenv').config();
 const { MongoClient } = require('mongodb');
 
-const url = "mongodb://localhost/issuetracker";
-// Atlas URL - replace UUU with user, PPP with password, XXX with hostname
-// const url = 'mongodb+srv://UUU:PPP@cluster0-XXX.mongodb.net/issuetracker?retryWrites=true';
+const url = process.env.DB_URL || "mongodb://localhost/issuetracker";
 
 // callback is a function that decides what to do when an error is encountered
 function testWithCallbacks(callback) {
@@ -14,7 +13,7 @@ function testWithCallbacks(callback) {
       callback(err);
       return;
     }
-    console.log("Connected to MongoDB! Welcome to the simulation.");
+    console.log(`Connected to MongoDB at url ${url}! Welcome to the simulation.`);
 
     const db = client.db(); // client = server object, client.db = database
     const collection = db.collection('employees');
@@ -48,7 +47,7 @@ async function testWithAsync() {
   const client = new MongoClient(url);
   try {
     await client.connect();
-    console.log("Connected to MongoDB! Welcome to the simulation.");
+    console.log(`Connected to MongoDB at url ${url}! Welcome to the simulation.`);
     const db = client.db(); // client = server object, client.db = database
     const collection = db.collection('employees');
     const employee = { id: 2, name: 'B. Async', age: 16 };

@@ -4,13 +4,14 @@
   "description": "MERN Stack API",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon -e js,graphql server.js",
+    "start": "nodemon -e js,graphql -w . -w .env server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "apollo-server-express": "^2.26.2",
+    "dotenv": "^6.2.0",
     "express": "^4.21.2",
     "graphql": "^0.13.2",
     "mongodb": "^3.7.4",

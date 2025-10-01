@@ -4,9 +4,12 @@ Applications I'm building to learn the MERN stack.
 
 ## Issue Tracker Specifications
 
-- The user should be able to view a list of issues, with an ability to filter the list by various parameters.
-- The user should be able to add new issues, by supplying the initial values of the issue’s fields.
-- The user should be able to edit and update an issue by changing its field values.
+- The user should be able to view a list of issues, with an
+  ability to filter the list by various parameters.
+- The user should be able to add new issues, by supplying the
+  initial values of the issue’s fields.
+- The user should be able to edit and update an issue by changing
+  its field values.
 - The user should be able delete an issue.
 
 An issue should have following attributes:
@@ -20,10 +23,55 @@ An issue should have following attributes:
 
 ## Getting Started
 
+### Running local MongoDB Server
+
+If running a local MongoDB Server, make sure that the server is
+running before moving on to any other step. For windows, this
+can be checked in the "Services" application
+(open Windows search and type "Services"). Check
+for the MongoDB Server service.
+
+### Running Issue Tracker
+
 To run the issue tracker application:
 
-1. In the `ui` folder, open two separate terminals. Run `npm start` in one, and `npm watch` in the other.
-2. In the `api` folder, open one terminal. Run `npm start`.
+1. In the `api` folder, create a file named `.env`, that looks
+   something like the following. Values can be adjusted based on
+   where the backend is being hosted.
+
+    ```bash
+    ## DB
+
+    # Local
+    DB_URL='mongodb://localhost/issuetracker'
+
+    # Atlas - replace UUU: user, PPP: password, XXX: hostname
+    # DB_URL=mongodb+srv://UUU:PPP@XXX.mongodb.net/issuetracker?retryWrites=true
+
+    # mLab - replace UUU: user, PPP: password, XXX: hostname, YYY: port
+    # DB_URL=mongodb://UUU:PPP@XXX.mlab.com:YYY/issuetracker
+
+    ## Server Port
+    API_SERVER_PORT=3000
+    ```
+
+2. In the `ui`, create a file named `.env`, that looks something
+   like the following. Values can be adjusted based on where the
+   frontend is being hosted.
+
+    ```bash
+    UI_SERVER_PORT=8000
+    UI_API_ENDPOINT='http://localhost:3000/graphql' #link to backend queries
+    ```
+
+3. In the `ui` folder, open two separate terminals. Run `npm start`
+   in one, and `npm run watch` in the other.
+   - Note: If you choose not to watch `npm watch`, you will have to
+     run `npm run compile` everytime you make changes to `App.jsx` to
+     confirm that the changes are compiled to JavaScript.
+4. In the `api` folder, open one terminal. Run `npm start`.
+
+### Running Scripts
 
 To run the mongo scripts in `api/scripts`:
 
