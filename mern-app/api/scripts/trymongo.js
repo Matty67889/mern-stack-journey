@@ -1,16 +1,16 @@
 require('dotenv').config();
 const { MongoClient } = require('mongodb');
 
-const url = process.env.DB_URL || "mongodb://localhost/issuetracker";
+const url = process.env.DB_URL || 'mongodb://localhost/issuetracker';
 
 // callback is a function that decides what to do when an error is encountered
 function testWithCallbacks(callback) {
-  console.log("\n--- testWithCallbacks ---");
+  console.log('\n--- testWithCallbacks ---');
 
   const client = new MongoClient(url);
-  client.connect(function (err, client) {
-    if (err) {
-      callback(err);
+  client.connect((connErr) => {
+    if (connErr) {
+      callback(connErr);
       return;
     }
     console.log(`Connected to MongoDB at url ${url}! Welcome to the simulation.`);
@@ -19,30 +19,30 @@ function testWithCallbacks(callback) {
     const collection = db.collection('employees');
 
     const employee = { id: 1, name: 'A. Callback', age: 23 };
-    collection.insertOne(employee, function (err, result) {
-      if (err) {
+    collection.insertOne(employee, (insertErr, result) => {
+      if (insertErr) {
         client.close();
-        callback(err);
+        callback(insertErr);
         return;
       }
       console.log('Result of insert:\n', result.insertedId);
       collection.find({ _id: result.insertedId })
-        .toArray(function (err, docs) {
-          if (err) {
+        .toArray((findErr, docs) => {
+          if (findErr) {
             client.close();
-            callback(err);
+            callback(findErr);
             return;
           }
           console.log('Result of find:\n', docs);
           client.close();
-          callback(err);
+          callback();
         });
     });
   });
 }
 
 async function testWithAsync() {
-  console.log("\n--- testWithAsync ---");
+  console.log('\n--- testWithAsync ---');
 
   const client = new MongoClient(url);
   try {
@@ -63,7 +63,7 @@ async function testWithAsync() {
   }
 }
 
-testWithCallbacks(function (err) {
+testWithCallbacks((err) => {
   if (err) {
     console.log(`Ran into an error: ${err}`);
   }
