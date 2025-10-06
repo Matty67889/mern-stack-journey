@@ -10,15 +10,15 @@ if (apiProxyTarget) {
   app.use('/graphql', proxy({ target: apiProxyTarget }));
 }
 
-const UI_API_ENDPOINT = process.env.UI_API_ENDPOINT ||
-  'http://localhost:3000/graphql';
+const UI_API_ENDPOINT = process.env.UI_API_ENDPOINT
+  || 'http://localhost:3000/graphql';
 const env = { UI_API_ENDPOINT };
 // responds to get request from env.js to get the variable
-app.get('/env.js', function (req, res) {
-  res.send(`window.ENV = ${JSON.stringify(env)}`)
+app.get('/env.js', (req, res) => {
+  res.send(`window.ENV = ${JSON.stringify(env)}`);
 });
 
 const port = process.env.UI_SERVER_PORT || 8000;
-app.listen(port, function () {
+app.listen(port, () => {
   console.log(`UI started on port ${port}`);
 });
