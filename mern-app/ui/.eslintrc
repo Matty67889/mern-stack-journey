@@ -4,6 +4,13 @@
     "node": true
   },
   "rules": {
+    "import/extensions": [
+      "error",
+      "always",
+      {
+        "ignorePackages": true
+      }
+    ],
     "no-console": "off",
     "linebreak-style": [
       "error",

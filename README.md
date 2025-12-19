@@ -70,7 +70,8 @@ To run the issue tracker application:
      run `npm run compile` everytime you make changes to `App.jsx` to
      confirm that the changes are compiled to JavaScript.
 4. In the `api` folder, open one terminal. Run `npm start`.
-5. Type `'localhost:3000/graphql'` in your broswer to open the
+5. Bundle the application with webpack using the command `npx webpack .\public\App.js --output public/app.bundle.js --mode production` (use `--mode development` for development mode)
+6. Type `'localhost:3000/graphql'` in your broswer to open the
    Apollo playground, and `'localhost:8000'` to open the issue tracker application.
 
 ### Running Scripts
