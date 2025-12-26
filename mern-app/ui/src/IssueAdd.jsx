@@ -1,0 +1,44 @@
+
+/**
+ * @fileoverview IssueAdd component.
+ */
+
+/* globals React PropTypes */
+
+/**
+ * Returns an element representing a form for adding issues.
+ */
+export default class IssueAdd extends React.Component {
+  constructor() {
+    super();
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(e) {
+    const { createIssue } = this.props;
+
+    e.preventDefault();
+    const form = document.forms.issueAdd;
+    const issue = {
+      owner: form.owner.value,
+      title: form.title.value,
+      due: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 10), // 10 days later
+    };
+    createIssue(issue);
+    form.owner.value = ''; form.title.value = '';
+  }
+
+  render() {
+    return (
+      <form name="issueAdd" onSubmit={this.handleSubmit}>
+        <input type="text" name="owner" placeholder="Owner" />
+        <input type="text" name="title" placeholder="Title" />
+        <button type="submit">Add</button>
+      </form>
+    );
+  }
+}
+
+IssueAdd.propTypes = {
+  createIssue: PropTypes.func.isRequired,
+};

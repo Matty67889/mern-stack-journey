@@ -70,8 +70,7 @@ To run the issue tracker application:
      run `npm run compile` everytime you make changes to `App.jsx` to
      confirm that the changes are compiled to JavaScript.
 4. In the `api` folder, open one terminal. Run `npm start`.
-5. Bundle the application with webpack using the command `npx webpack .\public\App.js --output public/app.bundle.js --mode production` (use `--mode development` for development mode)
-6. Type `'localhost:3000/graphql'` in your broswer to open the
+5. Type `'localhost:3000/graphql'` in your broswer to open the
    Apollo playground, and `'localhost:8000'` to open the issue tracker application.
 
 ### Running Scripts
@@ -80,3 +79,32 @@ To run the mongo scripts in `api/scripts`:
 
 In the `api` folder, open a terminal. Run `node scripts/<script_name>.js`.
 For example, to run the `trymongo.js` script, run `node scripts/trymongo.js`.
+
+## Developer Notes
+
+### Workflow
+
+1. Run the issue tracker using the instructions in
+   [Running Issue Tracker Section](#running-issue-tracker)
+2. Edit code.
+3. Run `npm run lint` and fix linting errors.
+4. Run `npm run compile` to compile a production version of the
+   app, and test to ensure that it works.
+
+### NPM Script Notes
+
+#### UI
+
+- start: Starts app.
+- lint: Runs linter for code.
+- compile: Compiles and bundles app for production.
+  - Use for compiling builds for production.
+- watch: Starts process that watches for changes, and compiles and
+  bundles app when a change is detected.
+  - Use for automatic re-compiles when code is changed during development.
+
+#### API
+
+- start: Starts app.
+- lint: Runs linter for code.
+- test: Script for running a test of app.
