@@ -3,7 +3,7 @@
  * @fileoverview Components related to creating a table of issues.
  */
 
-/* globals React */
+import React from "react";
 
 /**
  * Returns an element representing an issue in a table row given

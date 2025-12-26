@@ -9,17 +9,24 @@ const path = require('path');
 
 module.exports = {
   mode: 'development',
-  entry: './src/App.jsx', // starting point where all dependencies can be determined
+  entry: { app: './src/App.jsx' }, // starting point where all dependencies can be determined
   output: {
-    filename: 'app.bundle.js',
+    filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'public'),
   }, // output file path
   module: {
     rules: [
       {
         test: /\.jsx?$/, // regex pattern for files to compile
+        exclude: /node_modules/, // files to exclude
         use: 'babel-loader', // loader to use
       },
     ],
+  },
+  optimization: {
+    splitChunks: { // for separating app and vendor module bundles
+      name: 'vendor',
+      chunks: 'all',
+    },
   },
 };

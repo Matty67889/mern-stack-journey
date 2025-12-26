@@ -2,8 +2,9 @@
  * @fileoverview Main app.
  */
 
-/* globals React ReactDOM */
-
+import 'whatwg-fetch';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import IssueList from './IssueList.jsx';
 
 const element = <IssueList />;

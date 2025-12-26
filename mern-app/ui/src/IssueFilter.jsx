@@ -3,8 +3,7 @@
  * @fileoverview IssueFilter component.
  */
 
-/* globals React */
-/* eslint "react/prefer-stateless-function": "off" */
+import React from "react";
 
 /**
  * Returns a component representing a filter for issues.

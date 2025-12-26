@@ -3,7 +3,8 @@
  * @fileoverview IssueAdd component.
  */
 
-/* globals React PropTypes */
+import React from "react";
+import PropTypes from 'prop-types';
 
 /**
  * Returns an element representing a form for adding issues.
