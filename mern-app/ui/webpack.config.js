@@ -9,7 +9,7 @@ const path = require('path');
 
 module.exports = {
   mode: 'development',
-  entry: { app: './src/App.jsx' }, // starting point where all dependencies can be determined
+  entry: { app: ['./src/App.jsx'] }, // starting point where all dependencies can be determined
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'public'),

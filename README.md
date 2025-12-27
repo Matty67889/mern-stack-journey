@@ -33,7 +33,15 @@ for the MongoDB Server service.
 
 ### Running Issue Tracker
 
-To run the issue tracker application:
+The issue tracker application can be run in three ways:
+
+- production mode
+- development mode no hot module reload (HMR)
+- development mode HMR
+
+For all of these methods, a `.env` needs to be set up first.
+
+#### Setting up env file
 
 1. In the `api` folder, create a file named `.env`, that looks
    something like the following. Values can be adjusted based on
@@ -62,16 +70,36 @@ To run the issue tracker application:
     ```bash
     UI_SERVER_PORT=8000
     UI_API_ENDPOINT='http://localhost:3000/graphql' #link to backend queries
+    ENABLE_HMR='true' # enables (or disables) hot module reload
+    NODE_ENV='development' # should be either 'development' or 'production'
     ```
 
-3. In the `ui` folder, open two separate terminals. Run `npm start`
-   in one, and `npm run watch` in the other.
-   - Note: If you choose not to watch `npm watch`, you will have to
-     run `npm run compile` everytime you make changes to `App.jsx` to
-     confirm that the changes are compiled to JavaScript.
-4. In the `api` folder, open one terminal. Run `npm start`.
-5. Type `'localhost:3000/graphql'` in your broswer to open the
-   Apollo playground, and `'localhost:8000'` to open the issue tracker application.
+#### Running in Production mode
+
+1. Set `NODE_ENV='production'` in the `ui` folder `.env` file.
+2. In the `ui` folder, open a terminal. Run `npm run compile`, then
+   `npm run start`.
+3. In the `api` folder, open one terminal. Run `npm run start`.
+
+#### Running in Development mode no HMR
+
+1. Set `ENABLE_HMR='false'` in the `ui` folder `.env` file.
+2. In the `ui` folder, open two terminals. Run `npm run watch`
+   in one, and `npm run start` in the other.
+3. In the `api` folder, open one terminal. Run `npm run start`.
+
+#### Running in Development mode with HMR
+
+1. Set `NODE_ENV='development'` and `ENABLE_HMR='true'` in
+   the `ui` folder `.env` file.
+2. In the `ui` folder, open a terminal. Run `npm run start`.
+3. In the `api` folder, open one terminal. Run `npm run start`.
+
+#### Using the application
+
+Type `'localhost:3000/graphql'` in your broswer to open the
+Apollo playground, and `'localhost:8000'` to open the issue
+tracker application.
 
 ### Running Scripts
 
@@ -87,9 +115,9 @@ For example, to run the `trymongo.js` script, run `node scripts/trymongo.js`.
 1. Run the issue tracker using the instructions in
    [Running Issue Tracker Section](#running-issue-tracker)
 2. Edit code.
-3. Run `npm run lint` and fix linting errors.
-4. Run `npm run compile` to compile a production version of the
-   app, and test to ensure that it works.
+3. Run `npm run lint` and fix linting errors for `ui` and `api` folders.
+4. Run `npm run compile` in the `ui` folder to compile a
+   production version of the app, and test to ensure that it works.
 
 ### NPM Script Notes
 
