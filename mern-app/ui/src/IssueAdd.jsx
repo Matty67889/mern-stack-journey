@@ -3,7 +3,7 @@
  * @fileoverview IssueAdd component.
  */
 
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
 
 /**

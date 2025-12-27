@@ -3,7 +3,7 @@
  * @fileoverview IssueFilter component.
  */
 
-import React from "react";
+import React from 'react';
 
 /**
  * Returns a component representing a filter for issues.
