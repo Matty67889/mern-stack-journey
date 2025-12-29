@@ -74,27 +74,24 @@ For all of these methods, a `.env` needs to be set up first.
     UI_SERVER_PORT=8000
     UI_API_ENDPOINT='http://localhost:3000/graphql' #link to backend queries
     ENABLE_HMR='true' # enables (or disables) hot module reload
-    NODE_ENV='development' # should be either 'development' or 'production'
     ```
 
 #### Running in Production mode
 
-1. Set `NODE_ENV='production'` in the `ui` folder `.env` file.
-2. In the `ui` folder, open a terminal. Run `npm run compile`, then
+1. In the `ui` folder, open a terminal. Run `npm run compile`, then
    `npm run start`.
-3. In the `api` folder, open one terminal. Run `npm run start`.
+2. In the `api` folder, open one terminal. Run `npm run start`.
 
 #### Running in Development mode no HMR
 
-1. Set `ENABLE_HMR='false'` in the `ui` folder `.env` file.
+1. Set `ENABLE_HMR=false` in the `ui` folder `.env` file.
 2. In the `ui` folder, open two terminals. Run `npm run watch`
    in one, and `npm run start` in the other.
 3. In the `api` folder, open one terminal. Run `npm run start`.
 
 #### Running in Development mode with HMR
 
-1. Set `NODE_ENV='development'` and `ENABLE_HMR='true'` in
-   the `ui` folder `.env` file.
+1. Set `ENABLE_HMR=true` in the `ui` folder `.env` file.
 2. In the `ui` folder, open a terminal. Run `npm run start`.
 3. In the `api` folder, open one terminal. Run `npm run start`.
 
