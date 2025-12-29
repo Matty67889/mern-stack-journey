@@ -2,6 +2,9 @@
 
 Applications I'm building to learn the MERN stack.
 
+> **SECURITY WARNING**: This repository does not use the most
+> updated React packages. Use at your own risk.
+
 ## Issue Tracker Specifications
 
 - The user should be able to view a list of issues, with an
