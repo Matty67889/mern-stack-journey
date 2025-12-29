@@ -18,6 +18,8 @@ const NotFound = () => <h1>Page not Found</h1>;
 /**
  * Returns an element that routes to
  * different pages of the application.
+ * 
+ * The routes determine which element is rendered on the page.
  */
 export default function Contents() {
   return (

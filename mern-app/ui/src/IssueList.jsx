@@ -25,18 +25,46 @@ export default class IssueList extends React.Component {
     this.loadData();
   }
 
+  componentDidUpdate(prevProps) {
+    // updates filter when necessary by comparing previous
+    // search to current search to see when the query parameters update
+    const { location: { search: prevSearch } } = prevProps;
+    const { location: { search } } = this.props;
+    if (prevSearch !== search) {
+      this.loadData();
+    }
+  }
+
+  /**
+   * Loads data from database, and updates the state of
+   * the issue list with the data.
+   */
   async loadData() {
-    const query = `query {
-      issueList {
+    const { location: { search } } = this.props;
+    const params = new URLSearchParams(search);
+
+    const vars = {};
+    if (params.get('status')) vars.status = params.get('status');
+
+    const query = `query issueList($status: StatusType) {
+      issueList(status: $status) {
         id title status owner created effort due
       }
     }`;
-    const data = await graphQLFetch(query);
+    const data = await graphQLFetch(query, vars);
     if (data) {
       this.setState({ issues: data.issueList });
     }
   }
 
+  /**
+   * Creates an issue from the provided issue details.
+   * 
+   * The issues details must match the structure that the
+   * graphQL schema expects.
+   * 
+   * @param {Object} issue details for the issue.
+   */
   async createIssue(issue) {
     const query = `mutation issueAdd($issue: IssueInputs!) {
       issueAdd(issue: $issue) {

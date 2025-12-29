@@ -26,14 +26,18 @@ function validate(issue) {
 }
 
 /**
- * Returns a list of all issues in the database.
+ * Returns a list of issues in the database that match the provided filter.
  * 
- * @returns a list of all issues in the database.
+ * @param {Object} status the status of issues to display
+ * @returns a list of all issues in the database that match the provided filter.
  */
-async function list() {
+async function list(_, { status }) {
   const db = getDb();
+  const filter = {};
 
-  const issues = await db.collection('issues').find({}).toArray();
+  if (status) filter.status = status;
+
+  const issues = await db.collection('issues').find(filter).toArray();
   return issues;
 }
 
@@ -41,7 +45,7 @@ async function list() {
  * Adds an issue to the database.
  * 
  * @param {*} _ 
- * @param {*} param1 
+ * @param {Object} issue the issue details for the issue to add 
  * @returns the issue that was added to the database.
  */
 async function add(_, { issue }) {
