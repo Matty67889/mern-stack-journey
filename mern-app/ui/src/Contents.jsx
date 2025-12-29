@@ -26,7 +26,7 @@ export default function Contents() {
       The not found component must be last.
     */
     <Switch>
-      {/* Allows the home page to render issues list */}
+      {/* Allows the "/" path to render issues list */}
       <Redirect exact from="/" to="/issues" />
       <Route path="/issues" component={IssueList} />
       <Route path="/report" component={IssueReport} />
