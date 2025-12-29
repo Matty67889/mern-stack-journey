@@ -1,5 +1,5 @@
 /**
- * @fileoverview Components for rendering the navigation bar.
+ * @fileoverview Components for rendering the page.
  * 
  * Links are routed using the HashRouter, meaning that links will have the following form:
  * - home page will be "/"
@@ -7,17 +7,18 @@
  */
 
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 import Contents from './Contents.jsx';
 
 function NavBar() {
   return (
     <nav>
-      <a href="/">Home</a>
+      <NavLink exact to="/">Home</NavLink>
       {' | '}
-      <a href="/#/issues">Issue List</a>
+      <NavLink to="/issues">Issue List</NavLink>
       {' | '}
-      <a href="/#/report">Report</a>
+      <NavLink to="/report">Report</NavLink>
     </nav>
   );
 }
