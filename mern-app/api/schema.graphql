@@ -18,6 +18,7 @@ type Issue {
   effort: Int
   created: GraphQLDate!
   due: GraphQLDate
+  description: String
 }
 
 "Toned down Issue, used as inputs, without server generated values."
@@ -28,13 +29,17 @@ input IssueInputs {
   owner: String
   effort: Int
   due: GraphQLDate
+  description: String
 }
 
 ### Top Level Stuff
 
 type Query {
   about: String!
+  "Gets a list of issues according to the status filter"
   issueList(status: StatusType): [Issue!]!
+  "Retrieves one issue based on its id"
+  issue(id: Int!): Issue!
 }
 
 type Mutation {

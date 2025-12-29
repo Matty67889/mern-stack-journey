@@ -21,6 +21,14 @@ const issuesDB = [
     created: new Date('2018-08-15'),
     due: undefined,
     title: 'Chicken started running without its head',
+    description: 'Steps to recreate the problem:'
+      + '\n1. Refresh the browser.'
+      + '\n2. Select "New" in the filter'
+      + '\n3. Refresh the browser again. Note the warning in the console:'
+      + '\n   Warning: Hash history cannot PUSH the same path; a new entry'
+      + '\n   will not be added to the history stack'
+      + '\n4. Click on Add.'
+      + '\n5. There is an error in console, and add doesn\'t work.',
   },
   {
     id: 2,
@@ -30,6 +38,7 @@ const issuesDB = [
     created: new Date('2018-08-16'),
     due: new Date('2018-08-30'),
     title: "I can't find my fingers",
+    description: 'Attempting to find fingers results in not finding them',
   },
   {
     id: 3,
@@ -39,6 +48,8 @@ const issuesDB = [
     created: new Date('2018-08-17'),
     due: new Date('2018-08-18'),
     title: 'Adding another issue to follow the rule of threes',
+    description: 'There needs to be a border in the bottom in the panel'
+      + ' that appears when clicking on Add',
   },
 ];
 

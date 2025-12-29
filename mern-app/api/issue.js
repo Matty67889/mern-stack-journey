@@ -1,5 +1,5 @@
 /**
- * @fileoverview Issue related functions.
+ * @fileoverview Functions for interacting with the issue database.
  */
 
 const { UserInputError } = require('apollo-server-express');
@@ -23,6 +23,19 @@ function validate(issue) {
   if (errors.length > 0) {
     throw new UserInputError('Invalid input(s)', { errors });
   }
+}
+
+/**
+ * Returns the issue with the provided id.
+ * 
+ * @param {*} _ 
+ * @param {Object} id the id of the issue 
+ * @returns the issue with the provided id
+ */
+async function get(_, { id }) {
+  const db = getDb();
+  const issue = await db.collection('issues').findOne({ id });
+  return issue;
 }
 
 /**
@@ -61,4 +74,4 @@ async function add(_, { issue }) {
   return addedIssue;
 }
 
-module.exports = { list, add }
+module.exports = { list, add, get }

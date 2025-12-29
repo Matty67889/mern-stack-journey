@@ -6,7 +6,7 @@
 /* eslint "react/prefer-stateless-function": "off" */
 
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 /**
  * Returns a component representing a filter for issues.
@@ -25,8 +25,8 @@ class IssueFilter extends React.Component {
     const { history } = this.props;
     // changing link will trigger reload of data
     history.push({
-      pathname: 'issues',
-      search: status ? `status=${status}` : '',
+      pathname: '/issues',
+      search: status ? `?status=${status}` : '',
     });
   }
 

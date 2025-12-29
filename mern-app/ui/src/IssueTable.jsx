@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink, withRouter } from 'react-router-dom';
 
 /**
  * Returns an element representing an issue in a table row given
@@ -13,7 +13,8 @@ import { Link } from 'react-router-dom';
  * @param {Object} issue the issue to display in the row 
  * @returns an element representing an issue in a table row
  */
-function IssueRow({ issue }) {
+const IssueRow = withRouter(({ issue, location: { search } }) => {
+  const selectLocation = { pathname: `/issues/${issue.id}`, search };
   return (
     <tr>
       <td>{issue.id}</td>
@@ -23,10 +24,14 @@ function IssueRow({ issue }) {
       <td>{issue.effort}</td>
       <td>{issue.due ? issue.due.toDateString() : ' '}</td>
       <td>{issue.title}</td>
-      <td><Link to={`/edit/${issue.id}`}>Edit</Link></td>
+      <td>
+        <Link to={`/edit/${issue.id}`}>Edit</Link>
+        {' | '}
+        <NavLink to={selectLocation}>Show Details</NavLink>
+      </td>
     </tr>
   );
-}
+});
 
 /**
  * Returns an element representing a table of issues given

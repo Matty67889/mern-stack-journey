@@ -1,0 +1,59 @@
+/**
+ * @fileoverview Module for component for showing details of an issue.
+ */
+
+import React from "react";
+
+import graphQLFetch from './graphQLFetch';
+
+/**
+ * Returns a component representing details for an issue.
+ */
+export default class IssueDetail extends React.Component {
+  constructor() {
+    super();
+    this.state = { issue: {} };
+  }
+
+  componentDidMount() {
+    this.loadData();
+  }
+
+  componentDidUpdate(prevProps) {
+    const { match: { params: { id: prevId } } } = prevProps;
+    const { match: { params: { id } } } = this.props;
+    if (prevId !== id) {
+      this.loadData();
+    }
+  }
+
+  /**
+   * Requests data for an issue with a provided id from the
+   * database, and updates the state of the component with the issue data.
+   */
+  async loadData() {
+    const { match: { params: { id } } } = this.props;
+    const query = `query issue($id: Int!){
+      issue(id: $id) {
+        id description
+      }
+    }`;
+
+    const data = await graphQLFetch(query, { id });
+    if (data) {
+      this.setState({ issue: data.issue });
+    } else {
+      this.setState({ issue: {} });
+    }
+  }
+
+  render() {
+    const { issue: { description } } = this.state;
+    return (
+      <div>
+        <h3>Description</h3>
+        <pre>{description}</pre>
+      </div>
+    );
+  }
+}
