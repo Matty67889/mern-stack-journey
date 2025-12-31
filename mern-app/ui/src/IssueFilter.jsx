@@ -14,16 +14,51 @@ import { withRouter } from 'react-router-dom';
  * @returns an element representing a filter for issues.
  */
 class IssueFilter extends React.Component {
-  constructor() {
+  constructor({ location: { search } }) {
     super();
+    const params = new URLSearchParams(search);
+    this.state = {
+      status: params.get('status') || '',
+      changed: false,
+    };
     this.onChangeStatus = this.onChangeStatus.bind(this);
+    this.applyFilter = this.applyFilter.bind(this);
+    this.showOriginalFilter = this.showOriginalFilter.bind(this);
+  }
+
+  componentDidUpdate(prevProps) {
+    const { location: { search: prevSearch } } = prevProps;
+    const { location: { search } } = this.props;
+    if (prevSearch !== search) {
+      this.showOriginalFilter();
+    }
   }
 
   onChangeStatus(e) {
-    const status = e.target.value;
-    // this prop is available due to `withRouter` function
+    this.setState({
+      status: e.target.value,
+      changed: true,
+    });
+  }
+
+  /**
+   * Applies the default filter.
+   */
+  showOriginalFilter() {
+    const { location: { search } } = this.props;
+    const params = new URLSearchParams(search);
+    this.setState({
+      status: params.get('status') || '',
+      changed: false,
+    });
+  }
+
+  /**
+   * Applies the filter currently selected filter.
+   */
+  applyFilter() {
+    const { status } = this.state;
     const { history } = this.props;
-    // changing link will trigger reload of data
     history.push({
       pathname: '/issues',
       search: status ? `?status=${status}` : '',
@@ -31,19 +66,28 @@ class IssueFilter extends React.Component {
   }
 
   render() {
-    const { location: { search } } = this.props;
-    const params = new URLSearchParams(search);
+    const { status, changed } = this.state;
     return (
       <div>
         Status:
         {' '}
-        <select value={params.get('status') || ''} onChange={this.onChangeStatus}>
+        <select value={status} onChange={this.onChangeStatus}>
           <option value="">(All)</option>
           <option value="New">New</option>
           <option value="Assigned">Assigned</option>
           <option value="Fixed">Fixed</option>
           <option value="Closed">Closed</option>
         </select>
+        {' '}
+        <button type="button" onClick={this.applyFilter}>Apply</button>
+        {' '}
+        <button
+          type="button"
+          onClick={this.showOriginalFilter}
+          disabled={!changed}
+        >
+          Reset
+        </button>
       </div>
     );
   }
