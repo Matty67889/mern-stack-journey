@@ -44,11 +44,17 @@ async function get(_, { id }) {
  * @param {Object} status the status of issues to display
  * @returns a list of all issues in the database that match the provided filter.
  */
-async function list(_, { status }) {
+async function list(_, { status, effortMin, effortMax }) {
   const db = getDb();
   const filter = {};
 
   if (status) filter.status = status;
+
+  if (effortMin !== undefined || effortMax !== undefined) {
+    filter.effort = {};
+    if (effortMin !== undefined) filter.effort.$gte = effortMin;
+    if (effortMax !== undefined) filter.effort.$lte = effortMax;
+  }
 
   const issues = await db.collection('issues').find(filter).toArray();
   return issues;

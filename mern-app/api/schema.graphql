@@ -37,7 +37,11 @@ input IssueInputs {
 type Query {
   about: String!
   "Gets a list of issues according to the status filter"
-  issueList(status: StatusType): [Issue!]!
+  issueList(
+    status: StatusType
+    effortMin: Int
+    effortMax: Int
+  ): [Issue!]!
   "Retrieves one issue based on its id"
   issue(id: Int!): Issue!
 }
