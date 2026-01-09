@@ -1,4 +1,3 @@
-
 /**
  * @fileoverview Component for taking in number inputs.
  * 
