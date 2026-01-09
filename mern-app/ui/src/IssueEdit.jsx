@@ -1,4 +1,3 @@
-
 /**
  * @fileoverview Component for editing issues.
  */
@@ -6,7 +5,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import graphQLFetch from './graphQLFetch';
+import graphQLFetch from './graphQLFetch.js';
+import NumInput from './NumInput.jsx';
 
 /**
  * Returns a component representing a form for editing issues.
@@ -36,8 +36,15 @@ export default class IssueEdit extends React.Component {
     }
   }
 
-  onChange(event) {
-    const { name, value } = event.target;
+  /**
+   * Updates the state of the issue when it is edited.
+   * 
+   * @param {Object} event the event
+   * @param {Text} [naturalValue] the value in the natural data type
+   */
+  onChange(event, naturalValue) {
+    const { name, value: textValue } = event.target;
+    const value = naturalValue === undefined ? textValue : naturalValue;
     this.setState(prevState => ({
       issue: { ...prevState.issue, [name]: value },
     }));
@@ -49,6 +56,9 @@ export default class IssueEdit extends React.Component {
     console.log(issue); // eslint-disable-line no-console
   }
 
+  /**
+   * Loads data for the issue into the fields of the editing form.
+   */
   async loadData() {
     const query = `query issue($id: Int!) {
       issue(id: $id) {
@@ -62,7 +72,6 @@ export default class IssueEdit extends React.Component {
     if (data) {
       const { issue } = data;
       issue.due = issue.due ? issue.due.toDateString() : '';
-      issue.effort = issue.effort != null ? issue.effort.toString() : '';
       issue.owner = issue.owner != null ? issue.owner : '';
       issue.description = issue.description != null ? issue.description : '';
       this.setState({ issue });
@@ -118,10 +127,13 @@ export default class IssueEdit extends React.Component {
             <tr>
               <td>Effort:</td>
               <td>
-                <input
+                {/* Added key to have component update when using
+                next and pre buttons on edit page */}
+                <NumInput
                   name="effort"
                   value={effort}
                   onChange={this.onChange}
+                  key={id}
                 />
               </td>
             </tr>
@@ -168,6 +180,6 @@ export default class IssueEdit extends React.Component {
         {' | '}
         <Link to={`/edit/${id + 1}`}>Next</Link>
       </form>
-    )
+    );
   }
 }
