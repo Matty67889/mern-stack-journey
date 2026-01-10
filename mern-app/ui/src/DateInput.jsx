@@ -4,7 +4,7 @@
  * Native HTML input element requires string inputs,
  * so we build special inputs for non-strings.
  * 
- * Teh validity of a date has to be determined when
+ * The validity of a date has to be determined when
  * the user finishes typing the date, so this component
  * uses the `onBlur()` property to decide when to check for validity.
  */
