@@ -8,6 +8,10 @@ const { getDb, getNextSequence } = require("./db.js");
 /**
  * Validates that an issue is properly formatted.
  * 
+ * An issue is properly formatted if:
+ * - the length of the title is more than 3 characters long
+ * - the issue has an owner when the status is set to "Assigned"
+ * 
  * @param {Object} issue the issue to test
  */
 function validate(issue) {
@@ -80,4 +84,16 @@ async function add(_, { issue }) {
   return addedIssue;
 }
 
-module.exports = { list, add, get }
+async function update(_, { id, changes }) {
+  const db = getDb();
+  if (changes.title || changes.status || changes.owner) {
+    const issue = await db.collection('issues').findOne({ id });
+    Object.assign(issue, changes);
+    validate(issue);
+  }
+  await db.collection('issues').updateOne({ id }, { $set: changes });
+  const savedIssue = await db.collection('issues').findOne({ id });
+  return savedIssue;
+}
+
+module.exports = { list, add, get, update }
