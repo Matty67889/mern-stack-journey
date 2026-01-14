@@ -54,6 +54,12 @@ export default class IssueEdit extends React.Component {
     }));
   }
 
+  /**
+   * Saves the changes to the issue to the database,
+   * and updates component state.
+   * 
+   * @param {Object} e the event
+   */
   async handleSubmit(e) {
     e.preventDefault();
     const { issue, invalidFields } = this.state;

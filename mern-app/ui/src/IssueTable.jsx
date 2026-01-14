@@ -13,7 +13,9 @@ import { Link, NavLink, withRouter } from 'react-router-dom';
  * @param {Object} issue the issue to display in the row 
  * @returns an element representing an issue in a table row
  */
-const IssueRow = withRouter(({ issue, location: { search } }) => {
+const IssueRow = withRouter(({
+  issue, location: { search }, closeIssue, index
+}) => {
   const selectLocation = { pathname: `/issues/${issue.id}`, search };
   return (
     <tr>
@@ -27,7 +29,11 @@ const IssueRow = withRouter(({ issue, location: { search } }) => {
       <td>
         <Link to={`/edit/${issue.id}`}>Edit</Link>
         {' | '}
-        <NavLink to={selectLocation}>Show Details</NavLink>
+        <NavLink to={selectLocation}>Show Description</NavLink>
+        {' | '}
+        <button type="button" onClick={() => { closeIssue(index); }}>
+          Close
+        </button>
       </td>
     </tr>
   );
@@ -40,9 +46,14 @@ const IssueRow = withRouter(({ issue, location: { search } }) => {
  * @param {Object} issues a JSON object representing the list of issues.
  * @returns an element representing a table of issues.
  */
-export default function IssueTable({ issues }) {
-  const issueRows = issues.map(issue => (
-    <IssueRow key={issue.id} issue={issue} />
+export default function IssueTable({ issues, closeIssue }) {
+  const issueRows = issues.map((issue, index) => (
+    <IssueRow
+      key={issue.id}
+      issue={issue}
+      closeIssue={closeIssue}
+      index={index}
+    />
   ));
   return (
     <table className="bordered-table">

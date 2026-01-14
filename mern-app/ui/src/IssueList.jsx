@@ -20,8 +20,8 @@ export default class IssueList extends React.Component {
     super();
     this.state = { issues: [] };
     this.createIssue = this.createIssue.bind(this); // bind() necessary bc arrow
-    // function scope in
-    // IssueAdd
+    // function scope in IssueAdd
+    this.closeIssue = this.closeIssue.bind(this);
   }
 
   componentDidMount() {
@@ -94,6 +94,34 @@ export default class IssueList extends React.Component {
     }
   }
 
+  /**
+   * Sets the status of the issue in the issues list in `this.state`
+   * to "Closed".
+   * 
+   * @param {number} index the index of the issue in the issues list
+   */
+  async closeIssue(index) {
+    const query =
+      `mutation issueClose($id: Int!) {
+        issueUpdate(id: $id, changes: { status: Closed }) {
+          id title status owner
+          effort created due description
+        }
+      }`;
+    const { issues } = this.state;
+    const data = await graphQLFetch(query, { id: issues[index].id });
+    if (data) {
+      console.log(data);
+      this.setState((prevState) => {
+        const newIssuesList = [...prevState.issues];
+        newIssuesList[index] = data.issueUpdate;
+        return { issues: newIssuesList };
+      });
+    } else {
+      this.loadData();
+    }
+  }
+
   render() {
     const { issues } = this.state;
     const { match } = this.props;
@@ -102,7 +130,7 @@ export default class IssueList extends React.Component {
         <h1>Issue Tracker</h1>
         <IssueFilter />
         <hr />
-        <IssueTable issues={issues} />
+        <IssueTable issues={issues} closeIssue={this.closeIssue} />
         <hr />
         <IssueAdd createIssue={this.createIssue} />
         <hr />
