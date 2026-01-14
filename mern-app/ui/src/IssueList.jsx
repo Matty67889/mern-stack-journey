@@ -22,6 +22,7 @@ export default class IssueList extends React.Component {
     this.createIssue = this.createIssue.bind(this); // bind() necessary bc arrow
     // function scope in IssueAdd
     this.closeIssue = this.closeIssue.bind(this);
+    this.deleteIssue = this.deleteIssue.bind(this);
   }
 
   componentDidMount() {
@@ -111,10 +112,36 @@ export default class IssueList extends React.Component {
     const { issues } = this.state;
     const data = await graphQLFetch(query, { id: issues[index].id });
     if (data) {
-      console.log(data);
       this.setState((prevState) => {
         const newIssuesList = [...prevState.issues];
         newIssuesList[index] = data.issueUpdate;
+        return { issues: newIssuesList };
+      });
+    } else {
+      this.loadData();
+    }
+  }
+
+  /**
+   * Deletes an issue.
+   * 
+   * @param {number} index the index of the issue to delete
+   */
+  async deleteIssue(index) {
+    const query = `mutation issueDelete($id: Int!) {
+      issueDelete(id: $id)
+    }`;
+    const { issues } = this.state;
+    const { location: { pathname, search }, history } = this.props;
+    const { id } = issues[index];
+    const data = await graphQLFetch(query, { id });
+    if (data && data.issueDelete) {
+      this.setState((prevState) => {
+        const newIssuesList = [...prevState.issues];
+        if (pathname === `/issues/${id}`) {
+          history.push({ pathname: '/issues', search });
+        }
+        newIssuesList.splice(index, 1);
         return { issues: newIssuesList };
       });
     } else {
@@ -130,7 +157,11 @@ export default class IssueList extends React.Component {
         <h1>Issue Tracker</h1>
         <IssueFilter />
         <hr />
-        <IssueTable issues={issues} closeIssue={this.closeIssue} />
+        <IssueTable
+          issues={issues}
+          closeIssue={this.closeIssue}
+          deleteIssue={this.deleteIssue}
+        />
         <hr />
         <IssueAdd createIssue={this.createIssue} />
         <hr />

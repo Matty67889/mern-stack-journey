@@ -14,7 +14,7 @@ import { Link, NavLink, withRouter } from 'react-router-dom';
  * @returns an element representing an issue in a table row
  */
 const IssueRow = withRouter(({
-  issue, location: { search }, closeIssue, index
+  issue, location: { search }, closeIssue, deleteIssue, index
 }) => {
   const selectLocation = { pathname: `/issues/${issue.id}`, search };
   return (
@@ -34,6 +34,10 @@ const IssueRow = withRouter(({
         <button type="button" onClick={() => { closeIssue(index); }}>
           Close
         </button>
+        {' | '}
+        <button type="button" onClick={() => { deleteIssue(index); }}>
+          Delete
+        </button>
       </td>
     </tr>
   );
@@ -46,12 +50,13 @@ const IssueRow = withRouter(({
  * @param {Object} issues a JSON object representing the list of issues.
  * @returns an element representing a table of issues.
  */
-export default function IssueTable({ issues, closeIssue }) {
+export default function IssueTable({ issues, closeIssue, deleteIssue }) {
   const issueRows = issues.map((issue, index) => (
     <IssueRow
       key={issue.id}
       issue={issue}
       closeIssue={closeIssue}
+      deleteIssue={deleteIssue}
       index={index}
     />
   ));
