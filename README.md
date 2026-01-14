@@ -105,8 +105,8 @@ tracker application.
 
 To run the mongo scripts in `api/scripts`:
 
-In the `api` folder, open a terminal. Run `node scripts/<script_name>.js`.
-For example, to run the `trymongo.js` script, run `node scripts/trymongo.js`.
+In the `api` folder, open a terminal. Run `mongosh scripts/<script_name>.js`.
+For example, to run the `trymongo.js` script, run `mongosh scripts/trymongo.js`.
 
 ## Developer Notes
 

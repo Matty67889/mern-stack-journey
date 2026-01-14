@@ -60,6 +60,10 @@ type Query {
 
 type Mutation {
   setAboutMessage(message: String!): String
+  "Creates a new issue"
   issueAdd(issue: IssueInputs!): Issue!
+  "Updates an existing issue"
   issueUpdate(id: Int!, changes: IssueUpdateInputs!): Issue!
+  "Deletes an issue"
+  issueDelete(id: Int!): Boolean!
 }

@@ -65,7 +65,7 @@ async function list(_, { status, effortMin, effortMax }) {
 }
 
 /**
- * Adds an issue to the database.
+ * Adds an issue to the database, and returns the added issue.
  * 
  * @param {*} _ 
  * @param {Object} issue the issue details for the issue to add 
@@ -84,6 +84,13 @@ async function add(_, { issue }) {
   return addedIssue;
 }
 
+/**
+ * Updates an existing issue in the database and returns the updated issue.
+ * 
+ * @param {*} _ 
+ * @param {Object} param1 the id and the changes 
+ * @returns the issue that was saved to the database.
+ */
 async function update(_, { id, changes }) {
   const db = getDb();
   if (changes.title || changes.status || changes.owner) {
@@ -96,4 +103,29 @@ async function update(_, { id, changes }) {
   return savedIssue;
 }
 
-module.exports = { list, add, get, update }
+/**
+ * Attempts to delete an issue from the database, and
+ * returns true if the deletion was successful, and false otherwise.
+ * 
+ * Deleting an entry from the database saves it into
+ * another database for deleted issues (`'deleted_issues'`),
+ * and removes it from the main database.
+ * 
+ * @param {Object} id the id of the issue to remove.
+ * @returns `true` if the deletion was successful, `false` otherwise
+ */
+async function remove(_, { id }) {
+  const db = getDb();
+  const issue = await db.collection('issues').findOne({ id });
+  if (!issue) return false;
+  issue.deleted = new Date();
+
+  let result = await db.collection('deleted_issues').insertOne(issue);
+  if (result.insertedId) {
+    result = await db.collection('issues').removeOne({ id });
+    return result.deletedCount === 1;
+  }
+  return false;
+}
+
+module.exports = { list, add, get, update, delete: remove }
