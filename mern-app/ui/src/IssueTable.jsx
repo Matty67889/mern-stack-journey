@@ -5,18 +5,27 @@
 
 import React from 'react';
 import { Link, NavLink, withRouter } from 'react-router-dom';
+import {
+  Button, Glyphicon, Tooltip, OverlayTrigger,
+} from 'react-bootstrap';
 
 /**
  * Returns an element representing an issue in a table row given
  * an issue to display.
- * 
- * @param {Object} issue the issue to display in the row 
+ *
+ * @param {Object} issue the issue to display in the row
  * @returns an element representing an issue in a table row
  */
 const IssueRow = withRouter(({
   issue, location: { search }, closeIssue, deleteIssue, index
 }) => {
   const selectLocation = { pathname: `/issues/${issue.id}`, search };
+  const closeTooltip = (
+    <Tooltip id="close-tooltip" placement="top">Close Issue</Tooltip>
+  );
+  const deleteTooltip = (
+    <Tooltip id="delete-tooltip" placement="top">Delete Issue</Tooltip>
+  );
   return (
     <tr>
       <td>{issue.id}</td>
@@ -31,13 +40,17 @@ const IssueRow = withRouter(({
         {' | '}
         <NavLink to={selectLocation}>Show Description</NavLink>
         {' | '}
-        <button type="button" onClick={() => { closeIssue(index); }}>
-          Close
-        </button>
+        <OverlayTrigger delayShow={1000} overlay={closeTooltip}>
+          <Button bsSize="xsmall" onClick={() => { closeIssue(index); }}>
+            <Glyphicon glyph="remove" />
+          </Button>
+        </OverlayTrigger>
         {' | '}
-        <button type="button" onClick={() => { deleteIssue(index); }}>
-          Delete
-        </button>
+        <OverlayTrigger delayShow={1000} overlay={deleteTooltip}>
+          <Button bsSize="xsmall" onClick={() => { deleteIssue(index); }}>
+            <Glyphicon glyph="trash" />
+          </Button>
+        </OverlayTrigger>
       </td>
     </tr>
   );
@@ -46,7 +59,7 @@ const IssueRow = withRouter(({
 /**
  * Returns an element representing a table of issues given
  * a list of issues to display.
- * 
+ *
  * @param {Object} issues a JSON object representing the list of issues.
  * @returns an element representing a table of issues.
  */

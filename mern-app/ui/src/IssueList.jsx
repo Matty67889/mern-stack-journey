@@ -1,10 +1,10 @@
-
 /**
  * @fileoverview IssueList component.
  */
 
 import React from 'react';
 import { Route } from 'react-router-dom';
+import { Label } from 'react-bootstrap';
 
 import IssueFilter from './IssueFilter.jsx';
 import IssueTable from './IssueTable.jsx';
@@ -76,10 +76,10 @@ export default class IssueList extends React.Component {
 
   /**
    * Creates an issue from the provided issue details.
-   * 
+   *
    * The issues details must match the structure that the
    * graphQL schema expects.
-   * 
+   *
    * @param {Object} issue details for the issue.
    */
   async createIssue(issue) {
@@ -98,7 +98,7 @@ export default class IssueList extends React.Component {
   /**
    * Sets the status of the issue in the issues list in `this.state`
    * to "Closed".
-   * 
+   *
    * @param {number} index the index of the issue in the issues list
    */
   async closeIssue(index) {
@@ -124,7 +124,7 @@ export default class IssueList extends React.Component {
 
   /**
    * Deletes an issue.
-   * 
+   *
    * @param {number} index the index of the issue to delete
    */
   async deleteIssue(index) {
@@ -154,7 +154,7 @@ export default class IssueList extends React.Component {
     const { match } = this.props;
     return (
       <React.Fragment>
-        <h1>Issue Tracker</h1>
+        <h1><Label>Issue Tracker</Label></h1>
         <IssueFilter />
         <hr />
         <IssueTable

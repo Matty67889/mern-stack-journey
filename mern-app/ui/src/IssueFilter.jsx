@@ -7,10 +7,11 @@
 
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 
 /**
  * Returns a component representing a filter for issues.
- * 
+ *
  * @returns an element representing a filter for issues.
  */
 class IssueFilter extends React.Component {
@@ -40,7 +41,7 @@ class IssueFilter extends React.Component {
 
   /**
    * Updates the state of the filter when the status changes.
-   * 
+   *
    * @param {Object} e the event
    */
   onChangeStatus(e) {
@@ -52,7 +53,7 @@ class IssueFilter extends React.Component {
 
   /**
    * Updates the state of the filter when the minimum effort changes.
-   * 
+   *
    * @param {Object} e the event
    */
   onChangeEffortMin(e) {
@@ -68,7 +69,7 @@ class IssueFilter extends React.Component {
 
   /**
    * Updates the state of the filter when the maximum effort changes.
-   * 
+   *
    * @param {Object} e the event
    */
   onChangeEffortMax(e) {
@@ -140,15 +141,17 @@ class IssueFilter extends React.Component {
           onChange={this.onChangeEffortMax}
         />
         {' '}
-        <button type="button" onClick={this.applyFilter}>Apply</button>
+        <Button bsStyle="primary" type="button" onClick={this.applyFilter}>
+          Apply
+        </Button>
         {' '}
-        <button
+        <Button
           type="button"
           onClick={this.showOriginalFilter}
           disabled={!changed}
         >
           Reset
-        </button>
+        </Button>
       </div>
     );
   }
