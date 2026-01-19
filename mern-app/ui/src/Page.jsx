@@ -60,7 +60,7 @@ function Footer() {
       <p className="text-center">
         Full source code available at this
         {' '}
-        <a href="https://github.com/Matty67889">GitHub repository</a>
+        <a href="https://github.com/Matty67889/mern-stack-journey">GitHub repository</a>
       </p>
     </small>
   );
