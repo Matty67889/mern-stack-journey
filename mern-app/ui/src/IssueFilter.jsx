@@ -8,7 +8,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { ButtonToolbar, Button, FormGroup, FormControl,
-  ControlLabel, InputGroup,
+  ControlLabel, InputGroup, Row, Col,
 } from 'react-bootstrap';
 
 /**
@@ -118,43 +118,52 @@ class IssueFilter extends React.Component {
     const { status, changed } = this.state;
     const { effortMin, effortMax } = this.state;
     return (
-      <div>
-        <FormGroup>
-          <ControlLabel>Status:</ControlLabel>
-          <FormControl
-            componentClass="select"
-            value={status}
-            onChange={this.onChangeStatus}
-          >
-            <option value="">(All)</option>
-            <option value="New">New</option>
-            <option value="Assigned">Assigned</option>
-            <option value="Fixed">Fixed</option>
-            <option value="Closed">Closed</option>
-          </FormControl>
-        </FormGroup>
-        <FormGroup>
-          <ControlLabel>Effort between:</ControlLabel>
-          <InputGroup>
-            <FormControl value={effortMin} onChange={this.onChangeEffortMin} />
-            <InputGroup.Addon>-</InputGroup.Addon>
-            <FormControl value={effortMax} onChange={this.onChangeEffortMax} />
-          </InputGroup>
-        </FormGroup>
-        {' '}
-        <ButtonToolbar>
-          <Button bsStyle="primary" type="button" onClick={this.applyFilter}>
-            Apply
-          </Button>
-          <Button
-            type="button"
-            onClick={this.showOriginalFilter}
-            disabled={!changed}
-          >
-            Reset
-          </Button>
-        </ButtonToolbar>
-      </div>
+      <Row>
+        <Col xs={6} sm={4} md={3} lg={2}>
+          <FormGroup>
+            <ControlLabel>Status:</ControlLabel>
+            <FormControl
+              componentClass="select"
+              value={status}
+              onChange={this.onChangeStatus}
+            >
+              <option value="">(All)</option>
+              <option value="New">New</option>
+              <option value="Assigned">Assigned</option>
+              <option value="Fixed">Fixed</option>
+              <option value="Closed">Closed</option>
+            </FormControl>
+          </FormGroup>
+        </Col>
+        <Col xs={6} sm={4} md={3} lg={2}>
+          <FormGroup>
+            <ControlLabel>Effort between:</ControlLabel>
+            <InputGroup>
+              <FormControl value={effortMin} onChange={this.onChangeEffortMin} />
+              <InputGroup.Addon>-</InputGroup.Addon>
+              <FormControl value={effortMax} onChange={this.onChangeEffortMax} />
+            </InputGroup>
+          </FormGroup>
+        </Col>
+        <Col xs={6} sm={4} md={3} lg={2}>
+          <FormGroup>
+            {/* Added for alignment */}
+            <ControlLabel>&nbsp;</ControlLabel>
+            <ButtonToolbar>
+              <Button bsStyle="primary" type="button" onClick={this.applyFilter}>
+                Apply
+              </Button>
+              <Button
+                type="button"
+                onClick={this.showOriginalFilter}
+                disabled={!changed}
+              >
+                Reset
+              </Button>
+            </ButtonToolbar>
+          </FormGroup>
+        </Col>
+      </Row>
     );
   }
 }
