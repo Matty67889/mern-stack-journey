@@ -4,10 +4,6 @@
     "browser": true
   },
   "rules": {
-    "react/prop-types": "off",
-    "linebreak-style": [
-      "error",
-      "windows"
-    ]
+    "react/prop-types": "off"
   }
 }

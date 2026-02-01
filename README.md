@@ -121,6 +121,15 @@ For example, to run the `trymongo.js` script, run `mongosh scripts/trymongo.js`.
 
 ### NPM Script Notes
 
+- Note: If developing on Windows, use the following line in
+  all `.eslintrc` files to avoid CRLF errors:
+```json
+"linebreak-style": [
+  "error",
+  "windows"
+]
+```
+
 #### UI
 
 - start: Starts app.
@@ -136,3 +145,11 @@ For example, to run the `trymongo.js` script, run `mongosh scripts/trymongo.js`.
 - start: Starts app.
 - lint: Runs linter for code.
 - test: Script for running a test of app.
+
+### Debugging
+
+- If the page loads and the functionality works but
+  the styles do not appear to load, remember that
+  there is a symbolic link in the `ui/public` folder.
+  Make sure to recreate that symbolic link when moving
+  the project from one system to another.
