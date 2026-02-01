@@ -5,6 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+  Form, FormControl, FormGroup, ControlLabel, Button,
+} from 'react-bootstrap';
 
 /**
  * Returns an element representing a form for adding issues.
@@ -31,11 +34,19 @@ export default class IssueAdd extends React.Component {
 
   render() {
     return (
-      <form name="issueAdd" onSubmit={this.handleSubmit}>
-        <input type="text" name="owner" placeholder="Owner" />
-        <input type="text" name="title" placeholder="Title" />
-        <button type="submit">Add</button>
-      </form>
+      <Form inline name="issueAdd" onSubmit={this.handleSubmit}>
+        <FormGroup>
+          <ControlLabel>Owner:</ControlLabel>
+          {' '}
+          <FormControl type="input" name="owner"></FormControl>
+        </FormGroup>
+        <FormGroup>
+          <ControlLabel>Title:</ControlLabel>
+          {' '}
+          <FormControl type="input" name="title"></FormControl>
+        </FormGroup>
+        <Button bsStyle="primary" type="submit">Add</Button>
+      </Form>
     );
   }
 }
