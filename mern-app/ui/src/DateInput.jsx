@@ -1,9 +1,9 @@
 /**
  * @fileoverview Component for taking in date inputs.
- * 
+ *
  * Native HTML input element requires string inputs,
  * so we build special inputs for non-strings.
- * 
+ *
  * The validity of a date has to be determined when
  * the user finishes typing the date, so this component
  * uses the `onBlur()` property to decide when to check for validity.
@@ -13,9 +13,9 @@ import React from 'react';
 
 /**
  * Returns a date as a string, and an empty string if it can't be converted.
- * 
+ *
  * This is used for displaying the date.
- * 
+ *
  * @param {Object} date the date
  * @returns `date` as a string, or `''` if it can't be converted.
  */
@@ -25,9 +25,9 @@ function displayFormat(date) {
 
 /**
  * Returns a date as a ISO String.
- * 
+ *
  * This is used for forcing the user to edit the date in a `YYYY-MM-DD` format.
- * 
+ *
  * @param {Object} date the date
  * @returns `date` as an ISO string, or `''` if it can't be converted.
  */
@@ -37,7 +37,7 @@ function editFormat(date) {
 
 /**
  * Returns a string as a date, and null if the string can't be converted.
- * 
+ *
  * @param {string} str the string
  * @returns `str` as a date, or null if it can't be converted.
  */
@@ -69,7 +69,7 @@ export default class DateInput extends React.Component {
   /**
    * Updates the state of the component if the event value is a
    * digit or a dash (-).
-   * 
+   *
    * @param {Object} e the event
    */
   onChange(e) {
@@ -80,7 +80,7 @@ export default class DateInput extends React.Component {
 
   /**
    * Checks for date validity when the input loses focus.
-   * 
+   *
    * @param {Object} e the event
    */
   onBlur(e) {
@@ -98,16 +98,13 @@ export default class DateInput extends React.Component {
 
   render() {
     const { valid, focused, value } = this.state;
-    const { value: origValue, name } = this.props;
-    const className = (!valid && !focused) ? 'invalid' : null;
+    const { value: origValue, onValidityChange, ...props } = this.props;
     const displayValue = (focused || !valid) ? value
       : displayFormat(origValue);
     return (
       <input
         type="text"
-        size={20}
-        name={name}
-        className={className}
+        {...props}
         value={displayValue}
         placeholder={focused ? 'yyyy-mm-dd' : null}
         onFocus={this.onFocus}
