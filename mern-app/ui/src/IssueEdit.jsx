@@ -192,7 +192,12 @@ export default class IssueEdit extends React.Component {
                   value={status}
                   onChange={this.onChange}
                   key={id}
-                />
+                >
+                  <option value="New">New</option>
+                  <option value="Assigned">Assigned</option>
+                  <option value="Fixed">Fixed</option>
+                  <option value="Closed">Closed</option>
+                </FormControl>
               </Col>
             </FormGroup>
             <FormGroup>
