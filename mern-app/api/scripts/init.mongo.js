@@ -6,9 +6,9 @@
 * Run using the mongo shell. For remote databases, ensure that the
 * connection string is supplied in the command line. For example:
 * localhost:
-* mongo issuetracker scripts/init.mongo.js
+* mongosh issuetracker scripts/init.mongo.js
 * Atlas:
-* mongo mongodb+srv://user:pwd@xxx.mongodb.net/issuetracker
+* mongosh mongodb+srv://user:pwd@xxx.mongodb.net/issuetracker
   scripts/init.mongo.js
 */
 
@@ -76,4 +76,3 @@ db.issues.createIndex({ created: 1 });
 
 // create deleted issues collection
 db.deleted_issues.createIndex({ id: 1 }, { unique: true });
-
