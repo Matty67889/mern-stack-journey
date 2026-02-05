@@ -18,10 +18,10 @@ if (enableHMR && (process.env.NODE_ENV !== 'production')) {
   const webpack = require('webpack');
   const devMiddleware = require('webpack-dev-middleware');
   const hotMiddleware = require('webpack-hot-middleware');
-  const config = require('./webpack.config.js');
+  const config = require('../webpack.config.js');
 
   config.entry.app.push('webpack-hot-middleware/client'); // add entry point to webpack
-  // add HMR plugin to webpack config 
+  // add HMR plugin to webpack config
   config.plugins = config.plugins || [];
   config.plugins.push(new webpack.HotModuleReplacementPlugin());
 

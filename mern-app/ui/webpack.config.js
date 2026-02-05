@@ -1,6 +1,6 @@
 /**
  * Configuration file for babel loader used for webpack bundling.
- * 
+ *
  * Webpack requires loaders to combine the steps of manually
  * compiling the app files and bundling them.
  */
@@ -9,7 +9,7 @@ const path = require('path');
 
 module.exports = {
   mode: 'development',
-  entry: { app: ['./src/App.jsx'] }, // starting point where all dependencies can be determined
+  entry: { app: ['./browser/App.jsx'] }, // starting point where all dependencies can be determined
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'public'),
