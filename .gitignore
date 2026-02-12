@@ -3,3 +3,4 @@ package-lock.json
 mern-app/ui/public/*.js
 mern-app/ui/public/*.map
 .env
+mern-app/ui/dist/
