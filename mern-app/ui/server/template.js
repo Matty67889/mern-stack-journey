@@ -6,7 +6,7 @@
  * Function for generating an HTML template that can
  * take in additional elements.
  */
-function template(body) {
+export default function template(body) {
   return `<!DOCTYPE html>
   <html lang="en">
 
@@ -34,5 +34,3 @@ function template(body) {
     <div id="contents">${body}</div>
   </body>`;
 }
-
-module.exports = template;

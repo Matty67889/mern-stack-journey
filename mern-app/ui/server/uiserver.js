@@ -2,11 +2,16 @@
  * @fileoverview Module for running frontend server.
  */
 
-require('dotenv').config();
-const path = require('path');
-const express = require('express');
-const proxy = require('http-proxy-middleware');
-const render = require('./render.js');
+import dotenv from 'dotenv';
+import path from 'path';
+import express from 'express';
+import proxy from 'http-proxy-middleware';
+import SourceMapSupport from 'source-map-support';
+
+import render from './render.jsx';
+
+SourceMapSupport.install(), // for easier server debugging
+dotenv.config();
 
 const app = express();
 
@@ -19,7 +24,7 @@ if (enableHMR && (process.env.NODE_ENV !== 'production')) {
   const webpack = require('webpack');
   const devMiddleware = require('webpack-dev-middleware');
   const hotMiddleware = require('webpack-hot-middleware');
-  const config = require('../webpack.config.js');
+  const config = require('../webpack.config.js')[0];
 
   config.entry.app.push('webpack-hot-middleware/client'); // add entry point to webpack
   // add HMR plugin to webpack config
