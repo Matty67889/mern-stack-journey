@@ -56,7 +56,7 @@ Start by opening a terminal in the `ui` folder. Then, do the following:
   - Run `npm start`.
 - development mode no hot module reload (HMR)
   1. Set `ENABLE_HMR=false` in the `ui` folder `.env` file.
-  2. In the `ui` folder, open two terminals. Run `npm run watch`
+  2. In the `ui` folder, open two terminals. Run `npm run watch-server-hmr`
    in one, and `npm run start` in the other.
 - development mode HMR
   1. Set `ENABLE_HMR=true` in the `ui` folder `.env` file.
