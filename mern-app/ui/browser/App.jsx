@@ -15,7 +15,8 @@ const element = (
   </Router>
 );
 
-ReactDOM.render(element, document.getElementById('content'));
+// hydrate to attach event handlers to SSR rendered page
+ReactDOM.hydrate(element, document.getElementById('content'));
 
 // used to accept changes made with HMR enabled
 if (module.hot) {
