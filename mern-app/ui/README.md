@@ -43,8 +43,12 @@ frontend is being hosted.
 
 ```bash
 UI_SERVER_PORT=8000
-UI_API_ENDPOINT='http://localhost:3000/graphql' #link to backend queries
-ENABLE_HMR='true' # enables (or disables) hot module reload
+UI_API_ENDPOINT='http://localhost:3000/graphql'
+# UI_SERVER_API_ENDPOINT='http://localhost:3000/graphql'
+# API_PROXY_TARGET='http://localhost:3000'
+
+# enables (or disables) hot module reload
+ENABLE_HMR=true
 ```
 
 ### Running the Frontend Server
@@ -56,8 +60,9 @@ Start by opening a terminal in the `ui` folder. Then, do the following:
   - Run `npm start`.
 - development mode no hot module reload (HMR)
   1. Set `ENABLE_HMR=false` in the `ui` folder `.env` file.
-  2. In the `ui` folder, open two terminals. Run `npm run watch-server-hmr`
-   in one, and `npm run start` in the other.
+  2. In the `ui` folder, run `npm run dev-all`.
+     Alternatively, in the `ui` folder, open two terminals. Run
+     `npm run watch-server-hmr` in one, and `npm run start` in the other.
 - development mode HMR
   1. Set `ENABLE_HMR=true` in the `ui` folder `.env` file.
   2. In the `ui` folder, open a terminal. Run `npm run start`.

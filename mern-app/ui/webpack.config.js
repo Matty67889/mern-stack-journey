@@ -7,6 +7,7 @@
 
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
+const webpack = require('webpack');
 
 const browserConfig = {
   mode: 'development',
@@ -47,6 +48,12 @@ const browserConfig = {
       chunks: 'all',
     },
   },
+  // need graphQL to know if dealing with browser or server at runtime
+  plugins: [
+    new webpack.DefinePlugin({
+      __isBrowser__: JSON.stringify(true),
+    }),
+  ],
   devtool: 'source-map',
 };
 
@@ -87,6 +94,11 @@ const serverConfig = {
       chunks: 'all',
     },
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      __isBrowser__: JSON.stringify(false),
+    }),
+  ],
   devtool: 'source-map',
 };
 
