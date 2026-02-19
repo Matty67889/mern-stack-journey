@@ -14,7 +14,7 @@ import IssueReport from './IssueReport.jsx';
 import IssueEdit from './IssueEdit.jsx';
 import About from './About.jsx';
 
-const NotFound = () => <h1>Page not Found</h1>;
+import routes from './routes.js';
 
 /**
  * Returns an element that routes to
@@ -32,11 +32,7 @@ export default function Contents() {
     <Switch>
       {/* Allows the "/" path to render issues list */}
       <Redirect exact from="/" to="/issues" />
-      <Route path="/issues" component={IssueList} />
-      <Route path="/edit/:id" component={IssueEdit} />
-      <Route path="/report" component={IssueReport} />
-      <Route path="/about" component={About} />
-      <Route component={NotFound} />
+      {routes.map(attrs => <Route {...attrs} key={attrs.path} />)}
     </Switch>
   );
 }
