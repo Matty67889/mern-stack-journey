@@ -6,7 +6,7 @@
  * Function for generating an HTML template that can
  * take in additional elements.
  */
-export default function template(body) {
+export default function template(body, data) {
   return `<!DOCTYPE html>
   <html lang="en">
 
@@ -32,6 +32,7 @@ export default function template(body) {
   <body>
     <!-- Page generated from template -->
     <div id="content">${body}</div>
+    <script>window.__INITIAL_DATA__ = ${JSON.stringify(data)}</script>
 
     <script src="/env.js"></script>
     <script src="/vendor.bundle.js"></script>
