@@ -38,7 +38,8 @@ To run the backend, you must do the following:
 
 1. [Run the MongoDB server](#running-a-mongodb-server)
 2. [Set up a `.env` file](#setting-up-an-env-file)
-3. [Run the backend](#running-the-api) for the project
+3. Run `npm install` to install dependencies.
+4. [Run the backend](#running-the-api) for the project
 
 ### Running a MongoDB Server
 

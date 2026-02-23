@@ -6,6 +6,9 @@
  * Function for generating an HTML template that can
  * take in additional elements.
  */
+
+import serialize from 'serialize-javascript';
+
 export default function template(body, data) {
   return `<!DOCTYPE html>
   <html lang="en">
@@ -32,7 +35,7 @@ export default function template(body, data) {
   <body>
     <!-- Page generated from template -->
     <div id="content">${body}</div>
-    <script>window.__INITIAL_DATA__ = ${JSON.stringify(data)}</script>
+    <script>window.__INITIAL_DATA__ = ${serialize(data)}</script>
 
     <script src="/env.js"></script>
     <script src="/vendor.bundle.js"></script>

@@ -1,3 +1,4 @@
+
 /**
  * @fileoverview Component for editing issues.
  */
@@ -16,6 +17,7 @@ import NumInput from './NumInput.jsx';
 import DateInput from './DateInput.jsx';
 import TextInput from './TextInput.jsx';
 import Toast from './Toast.jsx';
+import store from './store.js';
 
 /**
  * Returns a component representing a form for editing issues.
@@ -24,10 +26,28 @@ import Toast from './Toast.jsx';
  * @returns an element representing a form for editing issues.
  */
 export default class IssueEdit extends React.Component {
+  /**
+   * Fetches component data for SSR.
+   */
+  static async fetchData(match, showError) {
+    const query = `query issue($id: Int!) {
+      issue(id: $id) {
+        id title status owner
+        effort created due description
+      }
+    }`;
+    const { params: { id } } = match;
+    const result = await graphQLFetch(query, { id }, showError);
+    return result;
+  }
+
   constructor() {
     super();
+    const issue = store.initialData ? store.initialData.issue : null;
+    // delete store so that other components can use store
+    delete store.initialData;
     this.state = {
-      issue: {},
+      issue,
       invalidFields: {},
       showingValidation: false,
       toastVisible: false,
@@ -45,7 +65,11 @@ export default class IssueEdit extends React.Component {
   }
 
   componentDidMount() {
-    this.loadData();
+    const { issue } = this.state;
+    // if issue is null, the page is being rendered on the browser
+    if (issue == null) {
+      this.loadData();
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -124,14 +148,8 @@ export default class IssueEdit extends React.Component {
    * Loads data for the issue into the fields of the editing form.
    */
   async loadData() {
-    const query = `query issue($id: Int!) {
-      issue(id: $id) {
-        id title status owner
-        effort created due description
-      }
-    }`;
-    const { match: { params: { id } } } = this.props;
-    const data = await graphQLFetch(query, { id });
+    const { match } = this.props;
+    const data = await IssueEdit.fetchData(match, this.showError);
     this.setState({ issue: data ? data.issue : {}, invalidFields: {} });
   }
 
@@ -145,6 +163,9 @@ export default class IssueEdit extends React.Component {
   }
 
   render() {
+    const { issue } = this.state;
+    if (issue == null) return null;
+
     const { issue: { id } } = this.state;
     const { match: { params: { id: propsId } } } = this.props;
     if (id == null) {

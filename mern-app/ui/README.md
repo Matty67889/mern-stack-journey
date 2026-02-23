@@ -33,7 +33,8 @@ to launch the frontend for the application.
 To run the frontend, follow these steps:
 
 1. Set up a `.env` file.
-2. Start the frontend server.
+2. Run `npm install` to install dependencies.
+3. Start the frontend server.
 
 ### Setting up an env file
 
